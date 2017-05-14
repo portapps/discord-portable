@@ -165,7 +165,7 @@
   <condition property="app.release" value="${env.APPVEYOR_BUILD_NUMBER}"><isset property="env.APPVEYOR_BUILD_NUMBER"/></condition>
   <condition property="app.release" value="${app.default.release}"><not><isset property="env.APPVEYOR_BUILD_NUMBER"/></not></condition>
 
-  <target name="vendor" depends="init.lib, load.lib" description="Install vendor">
+  <target name="vendor" description="Install vendor">
     <glide workingdir="${project.basedir}"/>
   </target>
 
@@ -176,6 +176,7 @@
     <echo message="Creating release..."/>
     <copy file="${project.basedir}/${app.id}.exe" todir="${release.path}" overwrite="true"/>
     <copy file="${discordsetup.path}" tofile="${release.path}/DiscordSetup-${app.version}.exe" overwrite="true"/>
+    <copy file="${discord.nupkg}" todir="${release.path}" overwrite="true"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.7z" format="7z"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.zip" format="zip"/>
 
@@ -229,11 +230,6 @@
       load.lib.rcedit,
       load.lib.innosetup">
     <var name="is.lib.loaded" value="true"/>
-  </target>
-
-  <target name="init.lib" unless="is.lib.loaded">
-    <mkdir dir="${bin.path}"/>
-    <mkdir dir="${lib.path}"/>
   </target>
 
   <target name="load.lib.antcontrib" unless="is.lib.loaded">

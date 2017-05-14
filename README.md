@@ -21,8 +21,9 @@ There are four different kinds of artifacts :
 
 * `discord-portable-x.x.x-x-setup.exe` : Full portable release of Discord as a setup. **Recommended way**!
 * `discord-portable-x.x.x-x.{7z,zip}` : Full portable release of Discord as an archive.
-* `discord-portable.exe` : Only the portable binary (must be dropped in the discord folder near `discord.exe`)
-* `DiscordSetup-x.x.x.exe` : The original setup from the [official website](https://discordapp.com/apps).
+* `discord-portable.exe` : Only the portable binary (must be dropped in the discord folder near `Update.exe`)
+* `DiscordSetup-x.x.x.exe` : The original setup from the [official website](https://discordapp.com/download).
+* `Discord-x.x.x-full.nupkg` : The original NUPKG file extracted from the original setup.
 
 For a **fresh installation**, install `discord-portable-x.x.x-x-setup.exe` where you want then run `discord-portable.exe`.
 
