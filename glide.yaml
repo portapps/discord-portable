@@ -1,7 +1,8 @@
 package: .
+homepage: https://github.com/crazy-max/discord-portable
+license: LGPL-3.0
+owners:
+- name: crazy-max
 import:
 - package: github.com/op/go-logging
   version: ~1.0.0
-- package: github.com/josephspurrier/goversioninfo
-  subpackages:
-  - cmd/goversioninfo
