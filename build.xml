@@ -62,16 +62,23 @@
   <macrodef name="glide">
     <attribute name="workingdir"/>
     <sequential>
-      <echo message="go get github.com/Masterminds/glide..."/>
+      <goget package="github.com/Masterminds/glide"/>
+      <exec executable="glide" failonerror="true" dir="@{workingdir}">
+        <env key="GOPATH" value="${gopath}"/>
+        <arg value="install"/>
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="goget">
+    <attribute name="package"/>
+    <sequential>
+      <echo message="go get @{package}..."/>
       <exec executable="go" failonerror="true">
         <env key="GOPATH" value="${gopath}"/>
         <arg value="get"/>
         <arg value="-v"/>
-        <arg value="github.com/Masterminds/glide"/>
-      </exec>
-      <exec executable="glide" failonerror="true" dir="@{workingdir}">
-        <env key="GOPATH" value="${gopath}"/>
-        <arg value="install"/>
+        <arg value="@{package}"/>
       </exec>
     </sequential>
   </macrodef>
@@ -369,6 +376,7 @@
     <copy file="${project.basedir}/versioninfo.json" todir="${go.path}" overwrite="true">
       <filterset refid="filterset.app"/>
     </copy>
+    <goget package="github.com/josephspurrier/goversioninfo/cmd/goversioninfo"/>
     <glide workingdir="${go.path}"/>
     <gogenerate workingdir="${go.path}"/>
     <gobuild outputfile="${go.path}/${app.id}.exe" workingdir="${go.path}"/>
