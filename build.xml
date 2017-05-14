@@ -64,8 +64,7 @@
     <sequential>
       <goget package="github.com/Masterminds/glide"/>
       <exec executable="glide" failonerror="true" dir="@{workingdir}">
-        <env key="GOPATH" value="${gopath}"/>
-        <arg value="install"/>
+        <arg value="up"/>
         <arg value="-v"/>
       </exec>
     </sequential>
@@ -76,7 +75,6 @@
     <sequential>
       <echo message="go get @{package}..."/>
       <exec executable="go" failonerror="true">
-        <env key="GOPATH" value="${gopath}"/>
         <arg value="get"/>
         <arg value="-v"/>
         <arg value="@{package}"/>
@@ -89,7 +87,6 @@
     <attribute name="workingdir"/>
     <sequential>
       <exec executable="go" failonerror="true" dir="@{workingdir}">
-        <env key="GOPATH" value="${gopath}"/>
         <arg value="build"/>
         <arg value="-o"/>
         <arg value="@{outputfile}"/>
@@ -104,7 +101,6 @@
     <attribute name="workingdir"/>
     <sequential>
       <exec executable="go" failonerror="true" dir="@{workingdir}">
-        <env key="GOPATH" value="${gopath}"/>
         <arg value="generate"/>
         <arg value="-v"/>
       </exec>
@@ -147,18 +143,6 @@
     </sequential>
   </macrodef>
 
-  <!-- Default excludes -->
-  <defaultexcludes add="**/.github/**"/>
-  <defaultexcludes add="**/.idea/**"/>
-  <defaultexcludes add="**/.settings/**"/>
-  <defaultexcludes add="**/.buildpath"/>
-  <defaultexcludes add="**/.gitattributes"/>
-  <defaultexcludes add="**/.gitignore"/>
-  <defaultexcludes add="**/.gitkeep"/>
-  <defaultexcludes add="**/.project"/>
-  <defaultexcludes add="**/.styleci.yml"/>
-  <defaultexcludes add="**/.travis.yml"/>
-
   <!-- Properties -->
   <property environment="env"/>
   <property name="bin.path" value="${project.basedir}/${bin.dir}"/>
@@ -177,37 +161,11 @@
   <property name="iscc" location="${innosetup.path}/app/ISCC.exe"/>
   <property name="discordsetup.path" value="${tmp.path}/DiscordSetup-${discordsetup.version}.exe"/>
 
-  <!-- Check on AppVeyor -->
-  <condition property="appveyor" value="true"><isset property="env.APPVEYOR_BUILD_NUMBER"/></condition>
-  <condition property="appveyor" value="false"><not><isset property="env.APPVEYOR_BUILD_NUMBER"/></not></condition>
-
   <!-- Build number -->
-  <condition property="app.release" value="${env.APPVEYOR_BUILD_NUMBER}"><istrue value="${appveyor}"/></condition>
-  <condition property="app.release" value="${app.default.release}"><isfalse value="${appveyor}"/></condition>
+  <condition property="app.release" value="${env.APPVEYOR_BUILD_NUMBER}"><isset property="env.APPVEYOR_BUILD_NUMBER"/></condition>
+  <condition property="app.release" value="${app.default.release}"><not><isset property="env.APPVEYOR_BUILD_NUMBER"/></not></condition>
 
-  <!-- Go build & pkg path -->
-  <condition property="gobuild.path" value="${project.basedir}"><istrue value="${appveyor}"/></condition>
-  <condition property="gobuild.path" value="${bin.path}/gobuild"><isfalse value="${appveyor}"/></condition>
-  <condition property="gopkg.path" value="${gobuild.path}"><istrue value="${appveyor}"/></condition>
-  <condition property="gopkg.path" value="${gobuild.path}/src/${app.package}"><isfalse value="${appveyor}"/></condition>
-
-  <!-- Go path -->
-  <condition property="gopath" value="${env.GOPATH};${gobuild.path}"><isset property="env.GOPATH"/></condition>
-  <condition property="gopath" value="${gobuild.path}"><not><isset property="env.GOPATH"/></not></condition>
-
-  <target name="setupdev" depends="init.lib, load.lib" description="Setup dev environment">
-    <if>
-      <not><available file="${project.basedir}/src"/></not>
-      <then>
-        <exec executable="cmd.exe" failonerror="true" dir="${project.basedir}">
-          <arg value="/c"/>
-          <arg value="mklink"/>
-          <arg value="/J"/>
-          <arg value="src"/>
-          <arg value="vendor"/>
-        </exec>
-      </then>
-    </if>
+  <target name="vendor" depends="init.lib, load.lib" description="Install vendor">
     <glide workingdir="${project.basedir}"/>
   </target>
 
@@ -216,7 +174,7 @@
     <echo file="${tmp.path}/version.dat" append="false">${app.version}-${app.release}</echo>
 
     <echo message="Creating release..."/>
-    <copy file="${gopkg.path}/${app.id}.exe" todir="${release.path}" overwrite="true"/>
+    <copy file="${project.basedir}/${app.id}.exe" todir="${release.path}" overwrite="true"/>
     <copy file="${discordsetup.path}" tofile="${release.path}/DiscordSetup-${app.version}.exe" overwrite="true"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.7z" format="7z"/>
     <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.zip" format="zip"/>
@@ -394,25 +352,14 @@
   </target>
 
   <target name="go.build">
-    <if>
-      <isfalse value="${appveyor}"/>
-      <then>
-        <delete dir="${gobuild.path}"/>
-        <copy todir="${gopkg.path}">
-          <fileset file="${project.basedir}/discord-portable.go"/>
-          <fileset file="${project.basedir}/discord-portable.ico"/>
-          <fileset file="${project.basedir}/glide.*"/>
-        </copy>
-      </then>
-    </if>
-    <copy file="${project.basedir}/versioninfo.json" todir="${gopkg.path}" overwrite="true">
+    <copy file="${res.path}/versioninfo.json" todir="${project.basedir}" overwrite="true">
       <filterset refid="filterset.app"/>
     </copy>
     <goget package="github.com/josephspurrier/goversioninfo/cmd/goversioninfo"/>
-    <glide workingdir="${gopkg.path}"/>
-    <gogenerate workingdir="${gopkg.path}"/>
-    <gobuild outputfile="${gopkg.path}/${app.id}.exe" workingdir="${gopkg.path}"/>
-    <assertfile file="${gopkg.path}/${app.id}.exe"/>
+    <glide workingdir="${project.basedir}"/>
+    <gogenerate workingdir="${project.basedir}"/>
+    <gobuild outputfile="${project.basedir}/${app.id}.exe" workingdir="${project.basedir}"/>
+    <assertfile file="${project.basedir}/${app.id}.exe"/>
   </target>
 
   <target name="build">
@@ -431,7 +378,7 @@
     <copy file="${extract.path}/RELEASES" todir="${build.path}/packages"/>
     <copy file="${project.basedir}/README.md" todir="${build.path}" overwrite="true"/>
 
-    <copy file="${gopkg.path}/${app.id}.exe" todir="${build.path}" overwrite="true"/>
+    <copy file="${project.basedir}/${app.id}.exe" todir="${build.path}" overwrite="true"/>
     <copy file="${res.path}/discord.ico" tofile="${build.path}/app.ico" overwrite="true"/>
   </target>
 
