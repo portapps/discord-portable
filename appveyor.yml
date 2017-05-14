@@ -1,7 +1,5 @@
 version: '{build}'
 
-clone_folder: C:\gopath
-
 platform:
   - x64
 
