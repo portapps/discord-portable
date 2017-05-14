@@ -23,7 +23,7 @@ install:
 configuration:
   - Release
 
-on_failure:
+build_script:
   - ant release
 
 after_build:
@@ -31,7 +31,7 @@ after_build:
       $env:APP_VERSION = Get-Content C:\gopath\bin\tmp\version.dat -Raw
       Write-Host "App version: $env:APP_VERSION"
 
-build_failure:
+on_failure:
   - cmd: tree C:\gopath
 
 artifacts:
