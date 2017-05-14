@@ -49,5 +49,5 @@ Any funds donated will be used to help further development on this project! :gif
 
 ## License
 
-LGPL. See `LICENSE` for more details.<br />
+MIT. See `LICENSE` for more details.<br />
 USB icon credit to [Juliia Osadcha](https://www.iconfinder.com/Juliia_Os).
