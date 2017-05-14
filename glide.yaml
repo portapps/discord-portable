@@ -5,4 +5,4 @@ owners:
 - name: crazy-max
 import:
 - package: github.com/op/go-logging
-  version: ~1.0.0
+  version: 970db520ece77730c7e4724c61121037378659d9
