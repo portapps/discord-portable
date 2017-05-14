@@ -161,7 +161,6 @@
 
   <!-- Properties -->
   <property environment="env"/>
-  <property name="src.path" value="${project.basedir}/${src.dir}"/>
   <property name="bin.path" value="${project.basedir}/${bin.dir}"/>
   <property name="res.path" value="${project.basedir}/${res.dir}"/>
   <property name="build.path" value="${bin.path}/build"/>
@@ -196,7 +195,19 @@
   <condition property="gopath" value="${env.GOPATH};${gobuild.path}"><isset property="env.GOPATH"/></condition>
   <condition property="gopath" value="${gobuild.path}"><not><isset property="env.GOPATH"/></not></condition>
 
-  <target name="vendor" description="Install vendor">
+  <target name="setupdev" depends="init.lib, load.lib" description="Setup dev environment">
+    <if>
+      <not><available file="${project.basedir}/src"/></not>
+      <then>
+        <exec executable="cmd.exe" failonerror="true" dir="${project.basedir}">
+          <arg value="/c"/>
+          <arg value="mklink"/>
+          <arg value="/J"/>
+          <arg value="src"/>
+          <arg value="vendor"/>
+        </exec>
+      </then>
+    </if>
     <glide workingdir="${project.basedir}"/>
   </target>
 
@@ -260,6 +271,11 @@
       load.lib.rcedit,
       load.lib.innosetup">
     <var name="is.lib.loaded" value="true"/>
+  </target>
+
+  <target name="init.lib" unless="is.lib.loaded">
+    <mkdir dir="${bin.path}"/>
+    <mkdir dir="${lib.path}"/>
   </target>
 
   <target name="load.lib.antcontrib" unless="is.lib.loaded">

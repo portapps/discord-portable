@@ -28,7 +28,7 @@ build_script:
 
 after_build:
   - ps: |
-      $env:APP_VERSION = Get-Content C:\gopath\bin\tmp\version.dat -Raw
+      $env:APP_VERSION = Get-Content C:\gopath\src\github.com\crazy-max\discord-portable\bin\tmp\version.dat -Raw
       Write-Host "App version: $env:APP_VERSION"
 
 on_failure:
