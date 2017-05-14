@@ -383,7 +383,7 @@
         <delete dir="${gobuild.path}"/>
         <copy todir="${gopkg.path}">
           <fileset file="${project.basedir}/discord-portable.go"/>
-          <fileset file="${project.basedir}/res/discord-portable.ico"/>
+          <fileset file="${project.basedir}/discord-portable.ico"/>
           <fileset file="${project.basedir}/glide.*"/>
         </copy>
         <copy file="${project.basedir}/versioninfo.json" todir="${gopkg.path}" overwrite="true">
