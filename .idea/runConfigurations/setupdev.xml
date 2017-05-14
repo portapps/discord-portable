@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="setupdev" type="AntRunConfiguration" factoryName="Ant Target" singleton="true">
+    <antsettings antfile="file://$PROJECT_DIR$/build.xml" target="setupdev" />
+    <method />
+  </configuration>
+</component>
