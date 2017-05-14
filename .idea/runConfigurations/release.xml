@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="release" type="AntRunConfiguration" factoryName="Ant Target" singleton="true">
-    <antsettings antfile="file://$PROJECT_DIR$/build.xml" target="release" />
-    <method />
-  </configuration>
-</component>
