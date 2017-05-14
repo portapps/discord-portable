@@ -3,14 +3,13 @@ version: '{build}'
 platform:
   - x86
 
-clone_folder: C:\gopath
+clone_folder: C:\gopath\src\github.com\crazy-max\discord-portable
 
 environment:
   JAVA_HOME: C:\Program Files (x86)\Java\jdk1.8.0
   GOPATH: C:\gopath
   GOROOT: C:\go\
   GOVERSION: 1.8
-  GO15VENDOREXPERIMENT: 1
 
 install:
   - ps: choco install ant
