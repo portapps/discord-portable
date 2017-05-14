@@ -66,6 +66,7 @@
       <exec executable="glide" failonerror="true" dir="@{workingdir}">
         <env key="GOPATH" value="${gopath}"/>
         <arg value="install"/>
+        <arg value="-v"/>
       </exec>
     </sequential>
   </macrodef>

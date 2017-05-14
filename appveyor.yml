@@ -1,5 +1,7 @@
 version: '{build}'
 
+clone_folder: C:\gopath
+
 platform:
   - x64
 
@@ -10,6 +12,7 @@ environment:
   GOPATH: C:\gopath
   GOROOT: C:\go\
   GOVERSION: 1.8
+  GO15VENDOREXPERIMENT: 1
 
 install:
   - ps: choco install ant
