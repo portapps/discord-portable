@@ -12,7 +12,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/op/go-logging"
+	logging "github.com/op/go-logging"
 )
 
 const (
