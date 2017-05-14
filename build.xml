@@ -162,7 +162,6 @@
   <!-- Properties -->
   <property environment="env"/>
   <property name="src.path" value="${project.basedir}/${src.dir}"/>
-  <property name="static.path" value="${project.basedir}/${static.dir}"/>
   <property name="bin.path" value="${project.basedir}/${bin.dir}"/>
   <property name="res.path" value="${project.basedir}/${res.dir}"/>
   <property name="build.path" value="${bin.path}/build"/>
@@ -218,6 +217,8 @@
     <copy todir="${setup.path}">
       <fileset dir="${res.path}">
         <include name="setup*"/>
+      </fileset>
+      <fileset dir="${project.basedir}">
         <include name="discord-portable.ico"/>
       </fileset>
     </copy>
@@ -386,11 +387,11 @@
           <fileset file="${project.basedir}/discord-portable.ico"/>
           <fileset file="${project.basedir}/glide.*"/>
         </copy>
-        <copy file="${project.basedir}/versioninfo.json" todir="${gopkg.path}" overwrite="true">
-          <filterset refid="filterset.app"/>
-        </copy>
       </then>
     </if>
+    <copy file="${project.basedir}/versioninfo.json" todir="${gopkg.path}" overwrite="true">
+      <filterset refid="filterset.app"/>
+    </copy>
     <goget package="github.com/josephspurrier/goversioninfo/cmd/goversioninfo"/>
     <glide workingdir="${gopkg.path}"/>
     <gogenerate workingdir="${gopkg.path}"/>
@@ -407,7 +408,7 @@
     <exec executable="${rcedit}" failonerror="true" dir="${build.path}">
       <arg value="${build.path}/Update.exe"/>
       <arg value="--set-icon"/>
-      <arg value="${static.path}/app.ico"/>
+      <arg value="${res.path}/discord.ico"/>
     </exec>
 
     <mkdir dir="${build.path}/packages"/>
@@ -415,9 +416,7 @@
     <copy file="${project.basedir}/README.md" todir="${build.path}" overwrite="true"/>
 
     <copy file="${gopkg.path}/${app.id}.exe" todir="${build.path}" overwrite="true"/>
-    <copy todir="${build.path}" overwrite="true">
-      <fileset dir="${static.path}" defaultexcludes="yes"/>
-    </copy>
+    <copy file="${res.path}/discord.ico" tofile="${build.path}/app.ico" overwrite="true"/>
   </target>
 
 </project>
