@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.297-3 (2017/05/14)
+
+* Provide the nupkg file in the release
+
 ## 0.0.297-2 (2017/05/14)
 
 * Move log
