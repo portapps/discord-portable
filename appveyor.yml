@@ -23,7 +23,7 @@ install:
 configuration:
   - Release
 
-build_script:
+on_failure:
   - ant release
 
 after_build:
