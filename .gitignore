@@ -17,5 +17,6 @@
 .dev
 bin
 res/*.pspimage
+src
 vendor
 *.syso
