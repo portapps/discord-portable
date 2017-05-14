@@ -1,6 +1,6 @@
-package: .
+package: github.com/crazy-max/discord-portable
 homepage: https://github.com/crazy-max/discord-portable
-license: LGPL-3.0
+license: MIT
 owners:
 - name: crazy-max
 import:
