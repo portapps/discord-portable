@@ -15,8 +15,14 @@ import (
 	"github.com/op/go-logging"
 )
 
-var log = logging.MustGetLogger("discord-portable")
-var logFormat = logging.MustStringFormatter(`%{time:2006-01-02 15:04:05} %{level:.4s} - %{message}`)
+const (
+	NAME = "discord-portable"
+)
+
+var (
+	log       = logging.MustGetLogger(NAME)
+	logFormat = logging.MustStringFormatter(`%{time:2006-01-02 15:04:05} %{level:.4s} - %{message}`)
+)
 
 func main() {
 	// Current path
@@ -25,18 +31,8 @@ func main() {
 		log.Error("Current path:", err)
 	}
 
-	// Logs folder
-	var logsPath = path.Join(currentPath, "logs")
-	if _, err := os.Stat(logsPath); os.IsNotExist(err) {
-		log.Info("Create logs folder", logsPath)
-		err = os.Mkdir(logsPath, 777)
-		if err != nil {
-			log.Error("Create logs folder:", err)
-		}
-	}
-
 	// Log file
-	logfile, err := os.OpenFile(path.Join(logsPath, "discord-portable.log"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	logfile, err := os.OpenFile(path.Join(currentPath, NAME+".log"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Error("Log file:", err)
 	}
@@ -46,33 +42,21 @@ func main() {
 	logBackendFile := logging.NewBackendFormatter(logging.NewLogBackend(logfile, "", 0), logFormat)
 	logging.SetBackend(logBackendStdout, logBackendFile)
 	log.Info("--------")
-	log.Info("Starting discord-portable...")
+	log.Info("Starting " + NAME + "...")
+	log.Info("Current path:", currentPath)
 
-	// Purge logs
-	logsFolder, err := os.Open(logsPath)
-	if err != nil {
-		log.Error("Open logs folder:", err)
-	}
-	defer logsFolder.Close()
-	logsFiles, err := logsFolder.Readdir(-1)
-	if err != nil {
-		log.Error("Read logs folder:", err)
-	}
-	log.Info("Reading", logsPath)
-	for _, logsFile := range logsFiles {
-		if !strings.HasPrefix(logsFile.Name(), "discord-portable") {
-			os.Remove(path.Join(logsPath, logsFile.Name()))
-			log.Info("Deleted", path.Join(logsPath, logsFile.Name()))
-		}
-	}
-
-	// Convert backslashes
-	currentPath = path.Join(strings.Replace(string(currentPath), string(filepath.Separator), "/", -1))
-	log.Info("Current path:" + currentPath)
+	// Init vars
+	discordExe := path.Join(currentPath, "Update.exe")
+	dataPath := path.Join(currentPath, "data")
+	symlinkPath := path.Clean(path.Join(os.Getenv("APPDATA"), "discord"))
+	//var symlinkPath = path.Join(currentPath, "data2")
+	log.Info("Discord executable:", discordExe)
+	log.Info("Data path:", dataPath)
+	log.Info("Symlink path:", symlinkPath)
 
 	// Find app folder
-	log.Info("Lookup app folder in", currentPath)
-	var appPath = ""
+	log.Info("Lookup app folder in:", currentPath)
+	appPath := ""
 	rootFiles, _ := ioutil.ReadDir(currentPath)
 	for _, f := range rootFiles {
 		if strings.HasPrefix(f.Name(), "app-") && f.IsDir() {
@@ -86,15 +70,6 @@ func main() {
 	} else {
 		log.Error("App path does not exist")
 	}
-
-	// Init vars
-	var discordExe = path.Join(currentPath, "Update.exe")
-	var dataPath = path.Join(currentPath, "data")
-	var symlinkPath = path.Clean(path.Join(os.Getenv("APPDATA"), "discord"))
-	//var symlinkPath = path.Join(currentPath, "data2")
-	log.Info("Discord executable:", discordExe)
-	log.Info("Data path:", dataPath)
-	log.Info("Symlink path:", symlinkPath)
 
 	// Create data folder
 	if _, err := os.Stat(dataPath); os.IsNotExist(err) {
@@ -135,7 +110,7 @@ func main() {
 	}
 
 	// Create symlink
-	log.Info("Create symlink", symlinkPath)
+	log.Info("Create symlink:", symlinkPath)
 	os.Remove(symlinkPath)
 	cmd := exec.Command("cmd", "/c", "mklink", "/J", strings.Replace(symlinkPath, "/", "\\", -1), strings.Replace(dataPath, "/", "\\", -1))
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
