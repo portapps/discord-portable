@@ -1,0 +1,10 @@
+hash: d218b665b00d640f5043f4d5dfc891ecd3e1afde3a1c51d15ffcace1cb0bf09c
+updated: 2017-05-12T17:07:55.2999049+02:00
+imports:
+- name: github.com/josephspurrier/goversioninfo
+  version: 53f6213da3d79c41d3ebc5fbc06d97be82e49dba
+  subpackages:
+  - cmd/goversioninfo
+- name: github.com/op/go-logging
+  version: b2cb9fa56473e98db8caba80237377e83fe44db5
+testImports: []

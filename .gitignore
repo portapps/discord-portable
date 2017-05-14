@@ -1,0 +1,21 @@
+# Intellij
+.idea/dictionaries
+.idea/inspectionProfiles
+.idea/libraries
+.idea/sonarlint
+.idea/**/composerJson.xml
+.idea/**/encodings.xml
+.idea/**/goLibraries.xml
+.idea/**/misc.xml
+.idea/**/php.xml
+.idea/**/terminal.xml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+*.iws
+
+# App
+.dev
+bin
+res/*.pspimage
+vendor
+*.syso
