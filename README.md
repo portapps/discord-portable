@@ -17,10 +17,10 @@ Tested on Windows 7, Windows 8.1 and Windows 10.
 
 ## Installation
 
-There are four different kinds of artifacts :
+There are different kinds of artifacts :
 
 * `discord-portable-x.x.x-x-setup.exe` : Full portable release of Discord as a setup. **Recommended way**!
-* `discord-portable-x.x.x-x.{7z,zip}` : Full portable release of Discord as an archive.
+* `discord-portable-x.x.x-x.7z` : Full portable release of Discord as a 7z archive.
 * `discord-portable.exe` : Only the portable binary (must be dropped in the discord folder near `Update.exe`)
 * `DiscordSetup-x.x.x.exe` : The original setup from the [official website](https://discordapp.com/download).
 * `Discord-x.x.x-full.nupkg` : The original NUPKG file extracted from the original setup.

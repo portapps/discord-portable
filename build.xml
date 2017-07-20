@@ -59,72 +59,6 @@
     </sequential>
   </macrodef>
 
-  <macrodef name="glide">
-    <attribute name="workingdir"/>
-    <sequential>
-      <goget package="github.com/Masterminds/glide"/>
-      <exec executable="glide" failonerror="true" dir="@{workingdir}">
-        <arg value="up"/>
-        <arg value="-v"/>
-      </exec>
-    </sequential>
-  </macrodef>
-
-  <macrodef name="goget">
-    <attribute name="package"/>
-    <sequential>
-      <echo message="go get @{package}..."/>
-      <exec executable="go" failonerror="true">
-        <arg value="get"/>
-        <arg value="-v"/>
-        <arg value="@{package}"/>
-      </exec>
-    </sequential>
-  </macrodef>
-
-  <macrodef name="gobuild">
-    <attribute name="outputfile"/>
-    <attribute name="workingdir"/>
-    <sequential>
-      <exec executable="go" failonerror="true" dir="@{workingdir}">
-        <arg value="build"/>
-        <arg value="-o"/>
-        <arg value="@{outputfile}"/>
-        <arg value="-v"/>
-        <arg value="-ldflags"/>
-        <arg value="-s -w -H=windowsgui"/>
-      </exec>
-    </sequential>
-  </macrodef>
-
-  <macrodef name="gogenerate">
-    <attribute name="workingdir"/>
-    <sequential>
-      <exec executable="go" failonerror="true" dir="@{workingdir}">
-        <arg value="generate"/>
-        <arg value="-v"/>
-      </exec>
-    </sequential>
-  </macrodef>
-
-  <macrodef name="setSetupUrl">
-    <attribute name="version"/>
-    <sequential>
-      <if>
-        <equals arg1="@{version}" arg2="latest"/>
-        <then>
-          <property name="discordsetup.url" value="${discordsetup.latest}"/>
-          <property name="discordsetup.skip" value="false"/>
-        </then>
-        <else>
-          <property file="${project.basedir}/setup.properties" prefix="setup"/>
-          <property name="discordsetup.url" value="${setup.@{version}}" />
-          <property name="discordsetup.skip" value="true"/>
-        </else>
-      </if>
-    </sequential>
-  </macrodef>
-
   <macrodef name="assertdir">
     <attribute name="dir"/>
     <sequential>
@@ -145,51 +79,67 @@
 
   <!-- Properties -->
   <property environment="env"/>
-  <property name="bin.path" value="${project.basedir}/${bin.dir}"/>
-  <property name="res.path" value="${project.basedir}/${res.dir}"/>
-  <property name="build.path" value="${bin.path}/build"/>
-  <property name="setup.path" location="${bin.path}/setup"/>
-  <property name="release.path" value="${bin.path}/release"/>
-  <property name="lib.path" value="${bin.path}/lib"/>
-  <property name="tmp.path" value="${bin.path}/tmp"/>
-  <property name="extract.path" value="${tmp.path}/extract"/>
-  <property name="nupkg.path" value="${tmp.path}/nupkg"/>
-  <property name="7za" value="${lib.path}/7zipextra/7za.exe"/>
-  <property name="rcedit" value="${lib.path}/rcedit/rcedit.exe"/>
-  <property name="innoextract" location="${lib.path}/innoextract/innoextract.exe"/>
-  <property name="innosetup.path" location="${lib.path}/innosetup"/>
-  <property name="iscc" location="${innosetup.path}/app/ISCC.exe"/>
-  <property name="discordsetup.path" value="${tmp.path}/DiscordSetup-${discordsetup.version}.exe"/>
+  <property name="bin.path" value="${project.basedir}\${bin.dir}"/>
+  <property name="res.path" value="${project.basedir}\${res.dir}"/>
+  <property name="build.path" value="${bin.path}\build"/>
+  <property name="setup.path" location="${bin.path}\setup"/>
+  <property name="release.path" value="${bin.path}\release"/>
+  <property name="lib.path" value="${bin.path}\lib"/>
+  <property name="tmp.path" value="${bin.path}\tmp"/>
+  <property name="extract.path" value="${tmp.path}\extract"/>
+  <property name="nupkg.path" value="${tmp.path}\nupkg"/>
+  <property name="7za" value="${lib.path}\7zipextra\7za.exe"/>
+  <property name="glide" value="${lib.path}\glide\windows-386\glide.exe"/>
+  <property name="rcedit" value="${lib.path}\rcedit\rcedit.exe"/>
+  <property name="innoextract" location="${lib.path}\innoextract\innoextract.exe"/>
+  <property name="innosetup.path" location="${lib.path}\innosetup"/>
+  <property name="iscc" location="${innosetup.path}\app\ISCC.exe"/>
+  <property name="atf.setupdest" location="${tmp.path}\${atf.setupname}.exe"/>
 
   <!-- Build number -->
   <condition property="app.release" value="${env.APPVEYOR_BUILD_NUMBER}"><isset property="env.APPVEYOR_BUILD_NUMBER"/></condition>
   <condition property="app.release" value="${app.default.release}"><not><isset property="env.APPVEYOR_BUILD_NUMBER"/></not></condition>
 
-  <target name="vendor" description="Install vendor">
-    <glide workingdir="${project.basedir}"/>
-  </target>
+  <target name="setup" depends="init, load.lib, glide, generate" description="Setup workspace"/>
 
-  <target name="release" depends="init, load.lib, discord.download, discord.process, infos, go.build, build" description="Release">
+  <target name="release" depends="init, load.lib, download, extract, filterset, build" description="Release">
+    <echo message="Preparing release..."/>
+    <copy todir="${build.path}/app-${app.version}">
+      <fileset dir="${atf.libpath}"/>
+    </copy>
+
+    <copy todir="${build.path}" file="${extract.path}/Update.exe"/>
+    <exec executable="${rcedit}" failonerror="true" dir="${build.path}">
+      <arg value="${build.path}/Update.exe"/>
+      <arg value="--set-icon"/>
+      <arg value="${res.path}/app.ico"/>
+    </exec>
+
+    <mkdir dir="${build.path}/packages"/>
+    <copy file="${extract.path}/RELEASES" todir="${build.path}/packages"/>
+    <copy file="${project.basedir}/README.md" todir="${build.path}" overwrite="true"/>
+
+    <copy file="${tmp.path}/${app.id}.exe" todir="${build.path}" overwrite="true"/>
+    <copy file="${res.path}/app.ico" tofile="${build.path}/app.ico" overwrite="true"/>
+
     <echo message="Writing version.dat..."/>
     <echo file="${tmp.path}/version.dat" append="false">${app.version}-${app.release}</echo>
 
-    <echo message="Creating release..."/>
-    <copy file="${project.basedir}/${app.id}.exe" todir="${release.path}" overwrite="true"/>
-    <copy file="${discordsetup.path}" tofile="${release.path}/DiscordSetup-${app.version}.exe" overwrite="true"/>
-    <copy file="${discord.nupkg}" todir="${release.path}" overwrite="true"/>
-    <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.7z" format="7z"/>
-    <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.zip" format="zip"/>
+    <echo message="Creating release files"/>
+    <copy file="${tmp.path}/${app.id}.exe" todir="${release.path}" overwrite="true"/>
+    <copy file="${atf.setupdest}" tofile="${release.path}/${atf.setupname}-${app.version}.exe" overwrite="true"/>
+    <copy file="${atf.nupkg}" todir="${release.path}" overwrite="true"/>
 
-    <echo message="Build setup"/>
+    <sevenzip src="${build.path}/*" dest="${release.path}/${app.id}-${app.version}-${app.release}.7z" format="7z"/>
+
+    <echo message="Building setup"/>
     <copy todir="${setup.path}/src">
       <fileset dir="${build.path}"/>
     </copy>
     <copy todir="${setup.path}">
       <fileset dir="${res.path}">
         <include name="setup*"/>
-      </fileset>
-      <fileset dir="${project.basedir}">
-        <include name="discord-portable.ico"/>
+        <include name="app-portable.ico"/>
       </fileset>
     </copy>
     <copy file="${project.basedir}/LICENSE" tofile="${setup.path}/license.txt"/>
@@ -227,6 +177,7 @@
   <target name="load.lib" unless="is.lib.loaded" depends="
       load.lib.antcontrib,
       load.lib.sevenzip,
+      load.lib.glide,
       load.lib.rcedit,
       load.lib.innosetup">
     <var name="is.lib.loaded" value="true"/>
@@ -254,6 +205,18 @@
         <unzip src="${lib.path}/7zipextra.zip" dest="${lib.path}/7zipextra"/>
       </then>
     </if>
+  </target>
+
+  <target name="load.lib.glide" unless="is.lib.loaded">
+    <echo message="Load Glide"/>
+    <get dest="${lib.path}/glide.zip" src="${glide.url}" skipexisting="true"/>
+    <if>
+      <not><available file="${lib.path}/glide" type="dir"/></not>
+      <then>
+        <unzip src="${lib.path}/glide.zip" dest="${lib.path}/glide"/>
+      </then>
+    </if>
+    <assertfile file="${glide}"/>
   </target>
 
   <target name="load.lib.rcedit" unless="is.lib.loaded">
@@ -286,51 +249,42 @@
         </exec>
       </then>
     </if>
-    <fail message="File ${iscc} not found">
-      <condition>
-        <not>
-          <available file="${iscc}"/>
-        </not>
-      </condition>
-    </fail>
+    <assertfile file="${iscc}"/>
   </target>
 
-  <target name="discord.download">
-    <echo message="Downloading Discord..."/>
-    <setSetupUrl version="${discordsetup.version}"/>
-    <echo message="* Version : ${discordsetup.version}"/>
-    <echo message="* URL     : ${discordsetup.url}"/>
-    <get dest="${discordsetup.path}" src="${discordsetup.url}" skipexisting="${discordsetup.skip}"/>
+  <target name="download">
+    <echo message="Downloading ${atf.id}..."/>
+    <get dest="${atf.setupdest}" src="${atf.url}" skipexisting="false"/>
   </target>
 
-  <target name="discord.process">
-    <echo message="Processing ${discordsetup.path}..."/>
-    <unsevenzip src="${discordsetup.path}" dest="${extract.path}"/>
+  <target name="extract">
+    <echo message="Extracting ${atf.setupdest}..."/>
+    <unsevenzip src="${atf.setupdest}" dest="${extract.path}"/>
 
     <first id="first.nupkg">
       <fileset dir="${extract.path}" includes="*.nupkg"/>
     </first>
-    <condition property="discord.nupkg" value="${toString:first.nupkg}">
+    <condition property="atf.nupkg" value="${toString:first.nupkg}">
       <available file="${toString:first.nupkg}" type="file"/>
     </condition>
-    <fail unless="discord.nupkg" message="Nupkg file not found"/>
-    <echo message="Nupkg found : ${discord.nupkg}"/>
+    <fail unless="atf.nupkg" message="Nupkg file not found"/>
+    <echo message="Nupkg found : ${atf.nupkg}"/>
 
-    <unsevenzip src="${discord.nupkg}" dest="${nupkg.path}"/>
-    <condition property="discord.libpath" value="${nupkg.path}/lib/net45">
-      <available file="${nupkg.path}/lib/net45/Discord.exe" type="file"/>
+    <unsevenzip src="${atf.nupkg}" dest="${nupkg.path}"/>
+    <condition property="atf.libpath" value="${nupkg.path}/${atf.libfolder}">
+      <available file="${nupkg.path}/${atf.libfolder}/${atf.id}.exe" type="file"/>
     </condition>
-    <fail unless="discord.libpath" message="Discord lib path not found"/>
+    <fail unless="atf.libpath" message="Artefact lib path not found"/>
 
     <echo message="Metadata found:"/>
-    <xmlproperty file="${nupkg.path}/Discord.nuspec" collapseAttributes="true"/>
+    <xmlproperty file="${nupkg.path}/${atf.id}.nuspec" collapseAttributes="true"/>
     <echo message="* ID      : ${package.metadata.id}"/>
     <echo message="* Title   : ${package.metadata.title}"/>
     <echo message="* Version : ${package.metadata.version}"/>
     <property name="app.version" value="${package.metadata.version}"/>
   </target>
 
-  <target name="infos">
+  <target name="filterset">
     <filterset id="filterset.app">
       <filter token="APP_ID" value="${app.id}"/>
       <filter token="APP_NAME" value="${app.name}"/>
@@ -347,35 +301,35 @@
     <echo message="APP_COPYRIGHT : ${app.url}"/>
   </target>
 
-  <target name="go.build">
+  <target name="glide" description="Install vendor">
+    <exec executable="${glide}" failonerror="true" dir="${project.basedir}">
+      <arg value="install"/>
+      <arg value="-v"/>
+    </exec>
+  </target>
+
+  <target name="generate" description="Go generate">
+    <exec executable="go" failonerror="true" dir="${project.basedir}">
+      <env key="GOARCH" value="386"/>
+      <arg value="generate"/>
+      <arg value="-v"/>
+    </exec>
+  </target>
+
+  <target name="build" depends="glide, generate">
     <copy file="${res.path}/versioninfo.json" todir="${project.basedir}" overwrite="true">
       <filterset refid="filterset.app"/>
     </copy>
-    <goget package="github.com/josephspurrier/goversioninfo/cmd/goversioninfo"/>
-    <glide workingdir="${project.basedir}"/>
-    <gogenerate workingdir="${project.basedir}"/>
-    <gobuild outputfile="${project.basedir}/${app.id}.exe" workingdir="${project.basedir}"/>
-    <assertfile file="${project.basedir}/${app.id}.exe"/>
-  </target>
-
-  <target name="build">
-    <copy todir="${build.path}/app-${app.version}">
-      <fileset dir="${discord.libpath}"/>
-    </copy>
-
-    <copy todir="${build.path}" file="${extract.path}/Update.exe"/>
-    <exec executable="${rcedit}" failonerror="true" dir="${build.path}">
-      <arg value="${build.path}/Update.exe"/>
-      <arg value="--set-icon"/>
-      <arg value="${res.path}/discord.ico"/>
+    <exec executable="go" failonerror="true" dir="${project.basedir}">
+      <env key="GOARCH" value="386"/>
+      <arg value="build"/>
+      <arg value="-o"/>
+      <arg value="${tmp.path}/${app.id}.exe"/>
+      <arg value="-v"/>
+      <arg value="-ldflags"/>
+      <arg value="-s -w -H=windowsgui"/>
     </exec>
-
-    <mkdir dir="${build.path}/packages"/>
-    <copy file="${extract.path}/RELEASES" todir="${build.path}/packages"/>
-    <copy file="${project.basedir}/README.md" todir="${build.path}" overwrite="true"/>
-
-    <copy file="${project.basedir}/${app.id}.exe" todir="${build.path}" overwrite="true"/>
-    <copy file="${res.path}/discord.ico" tofile="${build.path}/app.ico" overwrite="true"/>
+    <assertfile file="${tmp.path}/${app.id}.exe"/>
   </target>
 
 </project>
