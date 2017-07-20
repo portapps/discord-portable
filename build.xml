@@ -309,6 +309,9 @@
   </target>
 
   <target name="generate" description="Go generate">
+    <copy file="${res.path}/versioninfo.json" todir="${project.basedir}" overwrite="true">
+      <filterset refid="filterset.app"/>
+    </copy>
     <exec executable="go" failonerror="true" dir="${project.basedir}">
       <env key="GOARCH" value="386"/>
       <arg value="generate"/>
@@ -317,9 +320,6 @@
   </target>
 
   <target name="build" depends="glide, generate">
-    <copy file="${res.path}/versioninfo.json" todir="${project.basedir}" overwrite="true">
-      <filterset refid="filterset.app"/>
-    </copy>
     <exec executable="go" failonerror="true" dir="${project.basedir}">
       <env key="GOARCH" value="386"/>
       <arg value="build"/>
