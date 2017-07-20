@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.297-5 (2017/07/20)
+## 0.0.297-7 (2017/07/20)
 
 * Admin privileges not required for Setup (Issue #1)
 * Small refactoring
