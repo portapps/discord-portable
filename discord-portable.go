@@ -1,4 +1,6 @@
-//go:generate goversioninfo -icon=discord-portable.ico
+//go:generate go get -v github.com/josephspurrier/goversioninfo/...
+//go:generate goversioninfo -icon=res/app-portable.ico
+
 package main
 
 import (
