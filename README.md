@@ -15,7 +15,7 @@
 A single EXE created with [Golang](https://golang.org/) to make [Discord](https://discordapp.com) portable on Windows systems.<br />
 Tested on Windows 7, Windows 8.1 and Windows 10.
 
-> 💡 PTB (Public Test Build) portable version of Discord is available here : https://github.com/crazy-max/discord-ptb-portable
+> 💡 PTB (Public Test Build) portable version of Discord is available [here](https://github.com/crazy-max/discord-ptb-portable)
 
 ## Installation
 
