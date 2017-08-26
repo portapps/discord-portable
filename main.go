@@ -21,7 +21,7 @@ const (
 	NAME            = "discord-portable"
 	APP_NAME        = "Discord"
 	APP_DATA_FOLDER = "discord"
-	APP_PROCESS     = "Update.exe"
+	APP_PROCESS     = "Discord.exe"
 )
 
 var (
@@ -68,7 +68,7 @@ func main() {
 	}
 
 	// Init vars
-	appExe := path.Join(currentPath, APP_PROCESS)
+	appExe := path.Join(currentPath, "Update.exe")
 	dataPath := path.Join(currentPath, "data")
 	symlinkPath := path.Clean(path.Join(os.Getenv("APPDATA"), APP_DATA_FOLDER))
 	log.Info("App executable:", appExe)
@@ -128,7 +128,7 @@ func main() {
 
 	// Launch Discord
 	log.Infof("Launch %s...", APP_NAME)
-	cmd = exec.Command(appExe, "--processStart", "Discord.exe")
+	cmd = exec.Command(appExe, "--processStart", APP_PROCESS)
 	cmd.Dir = appPath
 
 	defer logfile.Close()
