@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.298-12 (2017/08/26)
+
+* Discord voice error (Issue #4)
+* Heuristic detection (Issue #3)
+* Upgrade to Go 1.9
+* Add support guidelines
+
 ## 0.0.298-10 (2017/08/09)
 
 * New release of Discord : 0.0.298
