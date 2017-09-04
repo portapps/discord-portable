@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.298-13 (2017/09/04)
+
+* Override USERPROFILE env var instead of using symlink to APPDATA to store data
+* Do not migrate old data folder from APPDATA
+* Reduce dependencies and system calls to avoid heuristic detection
+
+> :warning: **UPGRADE NOTES:** Move the content of `data\*` in `data\AppData\Roaming\discord\`.
+
 ## 0.0.298-12 (2017/08/26)
 
 * Discord voice error (Issue #4)
