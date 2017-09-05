@@ -6,7 +6,9 @@
 * Do not migrate old data folder from APPDATA
 * Reduce dependencies and system calls to avoid heuristic detection
 
-> :warning: **UPGRADE NOTES:** Move the content of `data\*` in `data\AppData\Roaming\discord\`.
+> :warning: **UPGRADE NOTES**
+> * Move the content of `data\*` in `data\AppData\Roaming\discord\`
+> * Remove symlink `%APPDATA%\discord`
 
 ## 0.0.298-12 (2017/08/26)
 
