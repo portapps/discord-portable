@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.298-14 (2017/11/11)
+
+* New logger
+* Switch to [Golang Dep](https://github.com/golang/dep) as dependency manager
+* Upgrade to Go 1.9.1
+
 ## 0.0.298-13 (2017/09/04)
 
 * Override USERPROFILE env var instead of using symlink to APPDATA to store data
