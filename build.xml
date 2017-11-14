@@ -100,7 +100,7 @@
   <condition property="app.release" value="${env.APPVEYOR_BUILD_NUMBER}"><isset property="env.APPVEYOR_BUILD_NUMBER"/></condition>
   <condition property="app.release" value="${app.default.release}"><not><isset property="env.APPVEYOR_BUILD_NUMBER"/></not></condition>
 
-  <target name="setup" depends="init, load.lib, dep, generate" description="Setup workspace"/>
+  <target name="setup" depends="init, load.lib, dep, filterset, generate" description="Setup workspace"/>
 
   <target name="release" depends="init, load.lib, download, extract, filterset, build" description="Release">
     <echo message="Preparing release..."/>
