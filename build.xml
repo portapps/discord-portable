@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="discord" basedir=".">
 
-  <dirname property="app.basedir" file="${ant.file.discord}"/>
-  <property name="build.properties" value="${app.basedir}/build.properties"/>
-  <property file="${build.properties}"/>
+<dirname property="app.basedir" file="${ant.file.discord}"/>
+<property name="build.properties" value="${app.basedir}/build.properties"/>
+<property file="${build.properties}"/>
 
-  <!-- Load Portapps core build -->
-  <property name="core.basedir" location="${app.basedir}\${core.dir}"/>
-  <fail unless="core.basedir" message="Core directory '${core.basedir}' not found in ${core.basedir}"/>
-  <echo message="Core found in ${core.basedir}" level="debug"/>
+<!-- Load Portapps core build -->
+<property name="core.basedir" location="${app.basedir}\${core.dir}"/>
+<fail unless="core.basedir" message="Core directory '${core.basedir}' not found in ${core.basedir}"/>
+<echo message="Core found in ${core.basedir}" level="debug"/>
 
-  <!-- Import build-app.xml  -->
-  <import file="${core.basedir}\.build\build-app.xml"/>
+<!-- Import build-app.xml  -->
+<import file="${core.basedir}\.build\build-app.xml"/>
 
-  <!-- Targets -->
-  <target name="release" depends="papps-app.release.app" description="Release"/>
+<!-- Targets -->
+<target name="release" depends="release.app" description="Release"/>
 
 </project>

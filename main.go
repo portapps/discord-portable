@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	App.Id = "discord-portable"
+	App.ID = "discord-portable"
 	App.Name = "Discord"
 	Init()
 }
@@ -19,6 +19,6 @@ func main() {
 	App.Args = []string{"--processStart", "Discord.exe"}
 	App.WorkingDir = App.MainPath
 
-	OverrideUserprofilePath(App.RootDataPath)
+	OverrideEnv("USERPROFILE", App.RootDataPath)
 	Launch()
 }
