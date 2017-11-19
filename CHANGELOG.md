@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.298-15 (2017/11/19)
+
+* Move repository to [Portapps](https://github.com/portapps) org
+
 ## 0.0.298-14 (2017/11/11)
 
 * New logger

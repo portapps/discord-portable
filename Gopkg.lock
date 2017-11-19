@@ -2,18 +2,26 @@
 
 
 [[projects]]
+  branch = "master"
   name = "github.com/google/logger"
   packages = ["."]
-  revision = "660ecf7532aaf162e3d3e435c4b63ed74b798a1f"
+  revision = "8fe7758b4c5f42c3df32b77c5c2bc3ccd65ea257"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/portapps/portapps"
+  packages = ["."]
+  revision = "5798dd6a946efede44879dc0f0ab77aeabec8099"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = ["windows","windows/registry","windows/svc/eventlog"]
-  revision = "e24f485414aeafb646f6fca458b0bf869c0880a1"
+  revision = "0ac51a24ef1c37380f98ba8b98f56e3bffd59850"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5bd40205658cf177f0a8fa3f430464288e7d95b0c6d1d7c845ac7e43b372d161"
+  inputs-digest = "6c7a78b2bdad75f5fd627d49db4bec2c128c6f1807dc3beae37dce10cd8489a9"
   solver-name = "gps-cdcl"
   solver-version = 1

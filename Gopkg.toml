@@ -1,7 +1,8 @@
 [metadata]
-package = "github.com/crazy-max/discord-portable"
-homepage = "https://github.com/crazy-max/discord-portable"
+package = "github.com/portapps/discord-portable"
+homepage = "https://github.com/portapps/discord-portable"
 license = "MIT"
 
 [[constraint]]
-  name = "github.com/google/logger"
+  branch = "master"
+  name = "github.com/portapps/portapps"
