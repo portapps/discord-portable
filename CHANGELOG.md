@@ -1,12 +1,5 @@
 # Changelog
 
-## 0.0.298-16 (2017/11/20)
-
-* Move app to a subfolder
-
-> :warning: **UPGRADE NOTES**
-> * Delete all files and folders in root folder except `data` folder.
-
 ## 0.0.298-15 (2017/11/19)
 
 * Move repository to [Portapps](https://github.com/portapps) org
