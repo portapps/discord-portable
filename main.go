@@ -7,18 +7,23 @@ import (
 )
 
 func init() {
-	App.ID = "discord-portable"
-	App.Name = "Discord"
+	Papp.ID = "discord-portable"
+	Papp.Name = "Discord"
 	Init()
 }
 
 func main() {
-	App.MainPath = FindElectronMainFolder("app-")
-	App.DataPath = CreateFolder(PathJoin(App.RootDataPath, "AppData", "Roaming", "discord"))
-	App.Process = RootPathJoin("Update.exe")
-	App.Args = []string{"--processStart", "Discord.exe"}
-	App.WorkingDir = App.MainPath
+	Papp.AppPath = AppPathJoin("app")
+	Papp.DataPath = AppPathJoin("data")
 
-	OverrideEnv("USERPROFILE", App.RootDataPath)
+	electronBinPath := PathJoin(Papp.AppPath, FindElectronAppFolder("app-", Papp.AppPath))
+	roamingPath := CreateFolder(PathJoin(Papp.DataPath, "AppData", "Roaming", "discord"))
+	Log.Infof("Roaming path: %s", roamingPath)
+
+	Papp.Process = PathJoin(Papp.AppPath, "Update.exe")
+	Papp.Args = []string{"--processStart", "Discord.exe"}
+	Papp.WorkingDir = electronBinPath
+
+	OverrideEnv("USERPROFILE", Papp.DataPath)
 	Launch()
 }
