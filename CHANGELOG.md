@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.299-17 (2017/12/14)
+
+* New release of Discord : 0.0.299
+
 ## 0.0.298-16 (2017/11/21)
 
 * Move app to a subfolder
