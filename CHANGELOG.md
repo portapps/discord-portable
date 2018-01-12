@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.300-18 (2018/01/12)
+
+* New release of Discord : 0.0.300
+
 ## 0.0.299-17 (2017/12/14)
 
 * New release of Discord : 0.0.299
