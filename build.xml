@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="discord" basedir=".">
 
-<dirname property="app.basedir" file="${ant.file.discord}"/>
-<property name="build.properties" value="${app.basedir}/build.properties"/>
-<property file="${build.properties}"/>
+  <dirname property="app.basedir" file="${ant.file.discord}"/>
+  <property name="build.properties" value="${app.basedir}/build.properties"/>
+  <property file="${build.properties}"/>
 
-<!-- Load Portapps core build -->
-<property name="core.basedir" location="${app.basedir}\${core.dir}"/>
-<fail unless="core.basedir" message="Core directory '${core.basedir}' not found in ${core.basedir}"/>
-<echo message="Core found in ${core.basedir}" level="debug"/>
+  <!-- Load Portapps core build -->
+  <property name="core.basedir" location="${app.basedir}\${core.dir}"/>
+  <fail unless="core.basedir" message="Core directory '${core.basedir}' not found in ${core.basedir}"/>
+  <echo message="Core found in ${core.basedir}" level="debug"/>
 
-<!-- Import build-app.xml  -->
-<import file="${core.basedir}\.build\build-app.xml"/>
+  <!-- Import build-app.xml  -->
+  <import file="${core.basedir}\.build\build-app.xml"/>
 
-<!-- Targets -->
-<target name="release" depends="release.app" description="Release"/>
+  <!-- Targets -->
+  <target name="release" depends="release.app" description="Release"/>
+
+  <target name="prepare" depends="load.lib.asar">
+    <echo message="Extracting app.asar..."/>
+    <exec executable="asar.cmd" failonerror="true" dir="${nupkg.path}\${electron.libfolder}\resources">
+      <arg value="extract"/>
+      <arg value="app.asar"/>
+      <arg value="app"/>
+    </exec>
+
+    <echo message="Replacing in app.asar..."/>
+    <assertfile file="${nupkg.path}\${electron.libfolder}\resources\app\${electron.appasar.file}"/>
+    <replace file="${nupkg.path}\${electron.libfolder}\resources\app\${electron.appasar.file}">
+      <replacefilter token="${electron.appasar.search}" value="${electron.appasar.replace}"/>
+    </replace>
+    <assertfile file="${nupkg.path}\${electron.libfolder}\resources\app\${electron.appasar.file2}"/>
+    <replace file="${nupkg.path}\${electron.libfolder}\resources\app\${electron.appasar.file2}">
+      <replacefilter token="${electron.appasar.search2}" value="${electron.appasar.replace2}"/>
+    </replace>
+  </target>
 
 </project>
