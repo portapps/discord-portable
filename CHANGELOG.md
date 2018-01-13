@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.300-19 (2018/01/13)
+
+* Rebuild electron.asar to push data directly in `data` subfolder
+* No need to override USERPROFILE environment variable anymore
+* Allow multiple instances (Issue #6)
+
+> :warning: **UPGRADE NOTES**
+> * Move everything in `data\AppData\Roaming\discord\*` to `data` folder and remove folder `data\AppData`.
+
 ## 0.0.300-18 (2018/01/12)
 
 * New release of Discord : 0.0.300

@@ -27,12 +27,21 @@ There are different kinds of artifacts :
 * `DiscordSetup-{ia32,x64}-x.x.x.exe` : The original setup from the [official website](https://discordapp.com/download).
 * `Discord-{ia32,x64}-x.x.x-full.nupkg` : The original NUPKG file extracted from the original setup.
 
-For a **fresh installation**, install `discord-portable-{ia32,x64}-x.x.x-x-setup.exe` where you want then run `discord-portable.exe`.
+### Fresh installation
 
-If **you have already installed Discord from the original setup**, do the same thing as a fresh installation and move the data located in `%APPDATA%\discord` to `data\AppData\Roaming\discord` then run `discord-portable.exe`.<br />
-Then you can [remove](https://support.microsoft.com/en-us/instantanswers/ce7ba88b-4e95-4354-b807-35732db36c4d/repair-or-remove-programs) Discord from your computer.
+Install `discord-portable-{ia32,x64}-x.x.x-x-setup.exe` where you want then run `discord-portable.exe`.
 
-**For an upgrade**, simply download and install the [latest setup](https://github.com/portapps/discord-portable/releases/latest).
+### App already installed
+
+If you have already installed Discord from the original setup, do the same thing as a fresh installation and :
+
+* Move data located in `%APPDATA%\discord\*` to `data` folder.
+
+Run `discord-portable.exe` and then you can [remove](https://support.microsoft.com/en-us/instantanswers/ce7ba88b-4e95-4354-b807-35732db36c4d/repair-or-remove-programs) Discord from your computer.
+
+### Upgrade
+
+For an upgrade, simply download and install the [latest setup](https://github.com/portapps/discord-portable/releases/latest).
 
 ## How can i help ?
 

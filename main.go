@@ -17,13 +17,10 @@ func main() {
 	Papp.DataPath = AppPathJoin("data")
 
 	electronBinPath := PathJoin(Papp.AppPath, FindElectronAppFolder("app-", Papp.AppPath))
-	roamingPath := CreateFolder(PathJoin(Papp.DataPath, "AppData", "Roaming", "discord"))
-	Log.Infof("Roaming path: %s", roamingPath)
 
 	Papp.Process = PathJoin(Papp.AppPath, "Update.exe")
 	Papp.Args = []string{"--processStart", "Discord.exe"}
 	Papp.WorkingDir = electronBinPath
 
-	OverrideEnv("USERPROFILE", Papp.DataPath)
 	Launch()
 }
