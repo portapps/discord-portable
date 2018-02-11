@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.300-22 (2018/02/11)
+
+* Move ia32/x64 to win32/win64 for arch def
+* Remove nupkg file
+
 ## 0.0.300-21 (2018/02/11)
 
 * Disable host updates (Issue #10)
