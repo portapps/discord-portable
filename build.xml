@@ -33,6 +33,10 @@
     <replace file="${nupkg.path}\${electron.libfolder}\resources\app\${electron.appasar.file2}">
       <replacefilter token="${electron.appasar.search2}" value="${electron.appasar.replace2}"/>
     </replace>
+    <assertfile file="${nupkg.path}\${electron.libfolder}\resources\app\${electron.appasar.file3}"/>
+    <replace file="${nupkg.path}\${electron.libfolder}\resources\app\${electron.appasar.file3}">
+      <replacefilter token="${electron.appasar.search3}" value="${electron.appasar.replace3}"/>
+    </replace>
   </target>
 
 </project>

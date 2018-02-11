@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.300-21 (2018/02/11)
+
+* Disable host updates (Issue #10)
+
 ## 0.0.300-20 (2018/02/08)
 
 * Ability to pass custom args to the portable process
