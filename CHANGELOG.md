@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.301-23 (2018/05/23)
+
+* New release of Discord : 0.0.301
+* Update bootstrap script for multiInstance
+
 ## 0.0.300-22 (2018/02/11)
 
 * Move ia32/x64 to win32/win64 for arch def
