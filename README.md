@@ -1,8 +1,8 @@
 <p align="center"><a href="https://portapps.github.io/app/discord-portable" target="_blank"><img width="100" src="https://github.com/portapps/discord-portable/blob/master/res/papp.png"></a></p>
 
 <p align="center">
-  <a href="https://github.com/portapps/discord-portable/releases/latest"><img src="https://img.shields.io/github/release/portapps/discord-portable.svg?style=flat-square" alt="GitHub release"></a>
-  <a href="https://github.com/portapps/discord-portable/releases/latest"><img src="https://img.shields.io/github/downloads/portapps/discord-portable/total.svg?style=flat-square" alt="Total downloads"></a>
+  <a href="https://portapps.github.io/app/discord-portable/#download"><img src="https://img.shields.io/github/release/portapps/discord-portable.svg?style=flat-square" alt="GitHub release"></a>
+  <a href="https://portapps.github.io/app/discord-portable/#download"><img src="https://img.shields.io/github/downloads/portapps/discord-portable/total.svg?style=flat-square" alt="Total downloads"></a>
   <a href="https://ci.appveyor.com/project/portapps/discord-portable"><img src="https://img.shields.io/appveyor/ci/portapps/discord-portable.svg?style=flat-square" alt="AppVeyor"></a>
   <a href="https://goreportcard.com/report/github.com/portapps/discord-portable"><img src="https://goreportcard.com/badge/github.com/portapps/discord-portable?style=flat-square" alt="Go Report"></a>
   <a href="https://www.codacy.com/app/portapps/discord-portable"><img src="https://img.shields.io/codacy/grade/46d1e15b6c984642a2f2e7932f9c119b.svg?style=flat-square" alt="Code Quality"></a>
