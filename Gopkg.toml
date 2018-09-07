@@ -1,8 +1,0 @@
-[metadata]
-package = "github.com/portapps/discord-portable"
-homepage = "https://github.com/portapps/discord-portable"
-license = "MIT"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/portapps/portapps"
