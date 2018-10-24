@@ -5,6 +5,8 @@
 package main
 
 import (
+	_ "github.com/kevinburke/go-bindata"
+
 	"encoding/json"
 	"io/ioutil"
 	"os"
