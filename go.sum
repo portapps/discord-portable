@@ -10,5 +10,7 @@ github.com/kevinburke/go-bindata v3.11.0+incompatible h1:GiPs9jxaG2xY1B5Dt/d/yHU
 github.com/kevinburke/go-bindata v3.11.0+incompatible/go.mod h1:/pEEZ72flUW2p0yi30bslSp9YqD9pysLxunQDdb2CPM=
 github.com/portapps/portapps v0.0.0-20181024181948-e16569932064 h1:0qPLfp5DUnqcAQe+876OfPyZ/OcuHdQ0QVtMXEcxbmc=
 github.com/portapps/portapps v0.0.0-20181024181948-e16569932064/go.mod h1:p1kIoTzL1vIz45ALGcTdNNxvADU6nbdmV+ChLMNP75k=
+github.com/portapps/portapps v1.17.0 h1:pqQEMkjxHR+UvolUmZvUGrnJFgMfvBFS5iQT9g6f5Vk=
+github.com/portapps/portapps v1.17.0/go.mod h1:p1kIoTzL1vIz45ALGcTdNNxvADU6nbdmV+ChLMNP75k=
 golang.org/x/sys v0.0.0-20180313075820-8c0ece68c283 h1:DE/w7won1Ns86VoWjUZ4cJS6//TObJntGkxuZ63asRc=
 golang.org/x/sys v0.0.0-20180313075820-8c0ece68c283/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=

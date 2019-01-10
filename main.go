@@ -80,4 +80,6 @@ func main() {
 	}
 
 	Launch(os.Args[1:])
+
+	_ = os.Remove(shortcutPath)
 }
