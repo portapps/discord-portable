@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.301-25 (2019/01/10)
+
+* Remove shortcut on close (Issue #13)
+
 ## 0.0.301-24 (2018/10/24)
 
 * Fix Windows desktop notifications
