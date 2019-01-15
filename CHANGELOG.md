@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.302-26 (2019/01/15)
+
+* Upgrade to Discord 0.0.302
+
 ## 0.0.301-25 (2019/01/10)
 
 * Remove shortcut on close (Issue #13)
@@ -12,7 +16,7 @@
 
 ## 0.0.301-23 (2018/05/23)
 
-* New release of Discord : 0.0.301
+* Upgrade to Discord : 0.0.301
 * Update bootstrap script for multiInstance
 
 ## 0.0.300-22 (2018/02/11)
@@ -39,11 +43,11 @@
 
 ## 0.0.300-18 (2018/01/12)
 
-* New release of Discord : 0.0.300
+* Upgrade to Discord : 0.0.300
 
 ## 0.0.299-17 (2017/12/14)
 
-* New release of Discord : 0.0.299
+* Upgrade to Discord : 0.0.299
 
 ## 0.0.298-16 (2017/11/21)
 
@@ -83,7 +87,7 @@
 
 ## 0.0.298-10 (2017/08/09)
 
-* New release of Discord : 0.0.298
+* Upgrade to Discord : 0.0.298
 
 ## 0.0.297-7 (2017/07/20)
 
