@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.304-27 (2019/01/17)
+
+* Upgrade to Discord 0.0.304
+
 ## 0.0.302-26 (2019/01/15)
 
 * Upgrade to Discord 0.0.302
