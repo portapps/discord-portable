@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.305-1 (2019/03/13)
+
+* Upgrade to Discord 0.0.305
+* Portapps 1.20.2
+
 ## 0.0.304-27 (2019/01/18)
 
 * Upgrade to Discord 0.0.304
