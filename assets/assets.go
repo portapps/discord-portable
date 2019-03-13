@@ -20,7 +20,7 @@ import (
 func bindataRead(data []byte, name string) ([]byte, error) {
 	gz, err := gzip.NewReader(bytes.NewBuffer(data))
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("read %q: %v", name, err)
 	}
 
 	var buf bytes.Buffer
@@ -28,7 +28,7 @@ func bindataRead(data []byte, name string) ([]byte, error) {
 	clErr := gz.Close()
 
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("read %q: %v", name, err)
 	}
 	if clErr != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func discordLnk() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "Discord.lnk", size: 1900, mode: os.FileMode(438), modTime: time.Unix(1540321391, 0)}
+	info := bindataFileInfo{name: "Discord.lnk", size: 1900, mode: os.FileMode(0666), modTime: time.Unix(1540321391, 0)}
 	a := &asset{bytes: bytes, info: info, digest: [32]uint8{0xf6, 0x6c, 0x22, 0x76, 0x62, 0x29, 0xe1, 0xa8, 0x19, 0xde, 0xc6, 0x8e, 0xf1, 0x2e, 0x96, 0x78, 0xe6, 0x7f, 0xf, 0xe9, 0x3d, 0x65, 0xdd, 0x53, 0xae, 0x61, 0x66, 0xdf, 0xc4, 0x70, 0x21, 0x68}}
 	return a, nil
 }
