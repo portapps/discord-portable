@@ -2,16 +2,16 @@
 
 ## 0.0.305-1 (2019/03/13)
 
-* Upgrade to Discord 0.0.305
+* Discord 0.0.305
 * Portapps 1.20.2
 
 ## 0.0.304-27 (2019/01/18)
 
-* Upgrade to Discord 0.0.304
+* Discord 0.0.304
 
 ## 0.0.302-26 (2019/01/15)
 
-* Upgrade to Discord 0.0.302
+* Discord 0.0.302
 
 ## 0.0.301-25 (2019/01/10)
 
@@ -20,12 +20,12 @@
 ## 0.0.301-24 (2018/10/24)
 
 * Fix Windows desktop notifications
-* Upgrade to Go 1.11
+* Go 1.11
 * Use [go mod](https://golang.org/cmd/go/#hdr-Module_maintenance) instead of `dep`
 
 ## 0.0.301-23 (2018/05/23)
 
-* Upgrade to Discord : 0.0.301
+* Discord : 0.0.301
 * Update bootstrap script for multiInstance
 
 ## 0.0.300-22 (2018/02/11)
@@ -52,11 +52,11 @@
 
 ## 0.0.300-18 (2018/01/12)
 
-* Upgrade to Discord : 0.0.300
+* Discord : 0.0.300
 
 ## 0.0.299-17 (2017/12/14)
 
-* Upgrade to Discord : 0.0.299
+* Discord : 0.0.299
 
 ## 0.0.298-16 (2017/11/21)
 
@@ -75,7 +75,7 @@
 
 * New logger
 * Switch to [Golang Dep](https://github.com/golang/dep) as dependency manager
-* Upgrade to Go 1.9.1
+* Go 1.9.1
 
 ## 0.0.298-13 (2017/09/04)
 
@@ -91,12 +91,12 @@
 
 * Discord voice error (Issue #4)
 * Heuristic detection (Issue #3)
-* Upgrade to Go 1.9
+* Go 1.9
 * Add support guidelines
 
 ## 0.0.298-10 (2017/08/09)
 
-* Upgrade to Discord : 0.0.298
+* Discord : 0.0.298
 
 ## 0.0.297-7 (2017/07/20)
 
