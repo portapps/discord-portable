@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.305-2 (2019/12/15)
+
+* Portapps 1.30.1
+* Add cleanup config
+
 ## 0.0.305-1 (2019/03/13)
 
 * Discord 0.0.305
