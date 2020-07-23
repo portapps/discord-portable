@@ -11,7 +11,7 @@ jobs:
       -
         name: VirusTotal Scan
         id: vt
-        uses: crazy-max/ghaction-virustotal@v2
+        uses: crazy-max/ghaction-virustotal@v2.2.0
         with:
           vt_api_key: ${{ secrets.VT_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
