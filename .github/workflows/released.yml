@@ -10,7 +10,7 @@ jobs:
     steps:
       -
         name: VirusTotal Monitor Scan
-        uses: crazy-max/ghaction-virustotal@v2.1.2
+        uses: crazy-max/ghaction-virustotal@v2.2.0
         with:
           vt_api_key: ${{ secrets.VT_MONITOR_API_KEY }}
           vt_monitor: true
