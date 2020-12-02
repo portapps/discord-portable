@@ -11,10 +11,10 @@ import (
 	"path"
 
 	"github.com/portapps/discord-portable/assets"
-	"github.com/portapps/portapps/v2"
-	"github.com/portapps/portapps/v2/pkg/log"
-	"github.com/portapps/portapps/v2/pkg/shortcut"
-	"github.com/portapps/portapps/v2/pkg/utl"
+	"github.com/portapps/portapps/v3"
+	"github.com/portapps/portapps/v3/pkg/log"
+	"github.com/portapps/portapps/v3/pkg/shortcut"
+	"github.com/portapps/portapps/v3/pkg/utl"
 )
 
 type config struct {
@@ -42,7 +42,12 @@ func init() {
 
 func main() {
 	utl.CreateFolder(app.DataPath)
-	electronBinPath := utl.PathJoin(app.AppPath, utl.FindElectronAppFolder("app-", app.AppPath))
+
+	electronAppFolder, err := utl.FindElectronAppFolder("app-", app.AppPath)
+	if err != nil {
+		log.Fatal().Msgf("Electron main folder not found")
+	}
+	electronBinPath := utl.PathJoin(app.AppPath, electronAppFolder)
 
 	app.Process = utl.PathJoin(electronBinPath, "Discord.exe")
 	app.WorkingDir = electronBinPath
