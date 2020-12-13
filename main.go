@@ -42,15 +42,10 @@ func init() {
 
 func main() {
 	utl.CreateFolder(app.DataPath)
+	electronAppPath := app.ElectronAppPath()
 
-	electronAppFolder, err := utl.FindElectronAppFolder("app-", app.AppPath)
-	if err != nil {
-		log.Fatal().Msgf("Electron main folder not found")
-	}
-	electronBinPath := utl.PathJoin(app.AppPath, electronAppFolder)
-
-	app.Process = utl.PathJoin(electronBinPath, "Discord.exe")
-	app.WorkingDir = electronBinPath
+	app.Process = utl.PathJoin(electronAppPath, "Discord.exe")
+	app.WorkingDir = electronAppPath
 
 	// Cleanup on exit
 	if cfg.Cleanup {
