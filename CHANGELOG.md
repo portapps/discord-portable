@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.309-8 (2021/03/09)
+
+* Cleanup reg key (#57)
+* Portapps 3.3.0
+
 ## 0.0.309-7 (2020/12/26)
 
 * Discord 0.0.309
