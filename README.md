@@ -11,15 +11,15 @@
 
 ## Notice of Non-Affiliation and Disclaimer
 
-Portapps is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord™, or any of its subsidiaries or its affiliates.
+Portapps is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord Inc, or any of its subsidiaries or its affiliates.
 
-The official Discord™ website can be found at https://discord.com.
+The official Discord Inc website can be found at https://discord.com.
 
-The name Discord™ as well as related names, marks, emblems and images are registered trademarks of their respective owners.
+The name Discord Inc as well as related names, marks, emblems and images are registered trademarks of their respective owners.
 
 ## About
 
-Discord™ portable app made with 🚀 [Portapps](https://portapps.io).<br />
+Discord Inc portable app made with 🚀 [Portapps](https://portapps.io).<br />
 Documentation and downloads can be found on https://portapps.io/app/discord-portable/
 
 ## How can I help?
