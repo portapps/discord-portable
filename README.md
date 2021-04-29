@@ -13,7 +13,7 @@
 
 Portapps is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Discord™, or any of its subsidiaries or its affiliates.
 
-The official Discord™ website can be found at https://discordapp.com.
+The official Discord™ website can be found at https://discord.com.
 
 The name Discord™ as well as related names, marks, emblems and images are registered trademarks of their respective owners.
 
