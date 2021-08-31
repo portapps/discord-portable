@@ -1,14 +1,16 @@
 //go:generate go install -v github.com/kevinburke/go-bindata/go-bindata
-//go:generate go-bindata -prefix res/ -pkg assets -o assets/assets.go res/Discord.lnk
+//go:generate go-bindata -prefix res/ -pkg assets -o assets/assets.go res/Discord.lnk res/pinned_update.json
 //go:generate go install -v github.com/josephspurrier/goversioninfo/cmd/goversioninfo
 //go:generate goversioninfo -icon=res/papp.ico -manifest=res/papp.manifest
 package main
 
 import (
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/portapps/discord-portable/assets"
 	"github.com/portapps/portapps/v3"
@@ -46,6 +48,9 @@ func main() {
 	electronAppPath := app.ElectronAppPath()
 
 	app.Process = utl.PathJoin(electronAppPath, "Discord.exe")
+	app.Args = []string{
+		"--user-data-dir=" + app.DataPath,
+	}
 	app.WorkingDir = electronAppPath
 
 	// Cleanup on exit
@@ -80,6 +85,7 @@ func main() {
 			log.Info().Interface("settings", jsonMapSettings).Msg("Current settings")
 
 			jsonMapSettings["SKIP_HOST_UPDATE"] = true
+			jsonMapSettings["USE_PINNED_UPDATE_MANIFEST"] = true
 			log.Info().Interface("settings", jsonMapSettings).Msg("New settings")
 
 			jsonSettings, err := json.Marshal(jsonMapSettings)
@@ -91,11 +97,28 @@ func main() {
 				log.Error().Err(err).Msg("Write settings")
 			}
 		}
+	} else {
+		fo, err := os.Create(settingsPath)
+		if err != nil {
+			log.Error().Err(err).Msg("Cannot create settings.json")
+		}
+		defer fo.Close()
+		if _, err = io.Copy(fo, strings.NewReader(`{
+  "SKIP_HOST_UPDATE": true,
+  "USE_PINNED_UPDATE_MANIFEST": true
+}`)); err != nil {
+			log.Error().Err(err).Msg("Cannot write to settings.json")
+		}
 	}
 
-	// Workaround for tray.png not found issue (https://github.com/portapps/discord-ptb-portable/issues/2)
-	if err := assets.RestoreAssets(app.RootPath, "data"); err != nil {
-		log.Error().Err(err).Msg("Cannot restore data assets")
+	// Copy pinned_update.json
+	pinnedUpdate, err := assets.Asset("pinned_update.json")
+	if err != nil {
+		log.Error().Err(err).Msg("Cannot load asset pinned_update.json")
+	}
+	err = ioutil.WriteFile(utl.PathJoin(app.DataPath, "pinned_update.json"), pinnedUpdate, 0644)
+	if err != nil {
+		log.Error().Err(err).Msg("Cannot write pinned_update.json")
 	}
 
 	// Copy default shortcut
