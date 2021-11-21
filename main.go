@@ -7,7 +7,6 @@ package main
 import (
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"strings"
@@ -76,7 +75,7 @@ func main() {
 	settingsPath := utl.PathJoin(app.DataPath, "settings.json")
 	if _, err := os.Stat(settingsPath); err == nil {
 		log.Info().Msg("Update settings...")
-		rawSettings, err := ioutil.ReadFile(settingsPath)
+		rawSettings, err := os.ReadFile(settingsPath)
 		if err == nil {
 			jsonMapSettings := make(map[string]interface{})
 			if err = json.Unmarshal(rawSettings, &jsonMapSettings); err != nil {
@@ -92,7 +91,7 @@ func main() {
 			if err != nil {
 				log.Error().Err(err).Msg("Settings marshal")
 			}
-			err = ioutil.WriteFile(settingsPath, jsonSettings, 0644)
+			err = os.WriteFile(settingsPath, jsonSettings, 0644)
 			if err != nil {
 				log.Error().Err(err).Msg("Write settings")
 			}
@@ -116,7 +115,7 @@ func main() {
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot load asset pinned_update.json")
 	}
-	err = ioutil.WriteFile(utl.PathJoin(app.DataPath, "pinned_update.json"), pinnedUpdate, 0644)
+	err = os.WriteFile(utl.PathJoin(app.DataPath, "pinned_update.json"), pinnedUpdate, 0644)
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot write pinned_update.json")
 	}
@@ -127,7 +126,7 @@ func main() {
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot load asset Discord.lnk")
 	}
-	err = ioutil.WriteFile(shortcutPath, defaultShortcut, 0644)
+	err = os.WriteFile(shortcutPath, defaultShortcut, 0644)
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot write default shortcut")
 	}
