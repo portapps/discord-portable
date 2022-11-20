@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.9007-14 (2022/11/20)
+
+* Discord 1.0.9007
+* Bump github.com/kevinburke/go-bindata from 3.23.0+incompatible to 3.24.0+incompatible
+
 ## 1.0.9006-13 (2022/08/13)
 
 * Discord 1.0.9006
