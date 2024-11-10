@@ -104,7 +104,7 @@ func pinned_updateJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "pinned_update.json", size: 13292, mode: os.FileMode(0666), modTime: time.Unix(1722710603, 0)}
+	info := bindataFileInfo{name: "pinned_update.json", size: 13292, mode: os.FileMode(0666), modTime: time.Unix(1722712358, 0)}
 	a := &asset{bytes: bytes, info: info, digest: [32]uint8{0x2f, 0x28, 0xa2, 0xc5, 0xfb, 0x94, 0x20, 0x72, 0xb1, 0xe5, 0x3c, 0x87, 0xcd, 0x65, 0xd2, 0x57, 0x85, 0xc7, 0x34, 0x7e, 0x7, 0x4e, 0x78, 0x96, 0xd9, 0x18, 0x31, 0x19, 0x57, 0x57, 0xbd, 0xdb}}
 	return a, nil
 }
@@ -250,7 +250,7 @@ type bintree struct {
 }
 
 var _bintree = &bintree{nil, map[string]*bintree{
-	"Discord.lnk": {discordLnk, map[string]*bintree{}},
+	"Discord.lnk":        {discordLnk, map[string]*bintree{}},
 	"pinned_update.json": {pinned_updateJson, map[string]*bintree{}},
 }}
 
