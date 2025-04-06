@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.9188-21 (2025/04/06)
+
+* Discord 1.0.9188
+* Portapps 3.16.0
+
 ## 1.0.9156-20 (2024/08/03)
 
 * Discord 1.0.9156 (no more 32-bit release)
