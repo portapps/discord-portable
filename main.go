@@ -1,7 +1,6 @@
 //go:generate go install -v github.com/kevinburke/go-bindata/v4/go-bindata
 //go:generate go-bindata -prefix res/ -pkg assets -o assets/assets.go res/Discord.lnk res/pinned_update.json
 //go:generate go install -v github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-//go:generate goversioninfo -icon=res/papp.ico -manifest=res/papp.manifest
 package main
 
 import (
@@ -9,6 +8,7 @@ import (
 	"io"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/portapps/discord-portable/assets"
@@ -46,7 +46,7 @@ func main() {
 	utl.CreateFolder(app.DataPath)
 	electronAppPath := app.ElectronAppPath()
 
-	app.Process = utl.PathJoin(electronAppPath, "Discord.exe")
+	app.Process = filepath.Join(electronAppPath, "Discord.exe")
 	app.Args = []string{
 		"--user-data-dir=" + app.DataPath,
 	}
@@ -72,7 +72,7 @@ func main() {
 	}
 
 	// Update settings
-	settingsPath := utl.PathJoin(app.DataPath, "settings.json")
+	settingsPath := filepath.Join(app.DataPath, "settings.json")
 	if _, err := os.Stat(settingsPath); err == nil {
 		log.Info().Msg("Update settings...")
 		rawSettings, err := os.ReadFile(settingsPath)
@@ -115,7 +115,7 @@ func main() {
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot load asset pinned_update.json")
 	}
-	err = os.WriteFile(utl.PathJoin(app.DataPath, "pinned_update.json"), pinnedUpdate, 0644)
+	err = os.WriteFile(filepath.Join(app.DataPath, "pinned_update.json"), pinnedUpdate, 0644)
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot write pinned_update.json")
 	}
