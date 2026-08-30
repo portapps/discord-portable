@@ -2,7 +2,7 @@ module github.com/portapps/discord-portable
 
 go 1.26.0
 
-require github.com/portapps/portapps/v3 v3.18.0
+require github.com/portapps/portapps/v3 v3.19.0
 
 require (
 	github.com/akavel/rsrc v0.10.2 // indirect
@@ -14,9 +14,9 @@ require (
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/rs/zerolog v1.35.0 // indirect
-	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/sys v0.42.0 // indirect
+	github.com/rs/zerolog v1.35.1 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 )
 
 tool (
