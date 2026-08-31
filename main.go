@@ -1,22 +1,26 @@
-//go:generate go install -v github.com/kevinburke/go-bindata/v4/go-bindata
-//go:generate go-bindata -prefix res/ -pkg assets -o assets/assets.go res/Discord.lnk res/pinned_update.json
 //go:generate go install -v github.com/josephspurrier/goversioninfo/cmd/goversioninfo
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"github.com/portapps/discord-portable/assets"
 	"github.com/portapps/portapps/v3"
 	"github.com/portapps/portapps/v3/pkg/files"
 	"github.com/portapps/portapps/v3/pkg/log"
 	"github.com/portapps/portapps/v3/pkg/registry"
 	"github.com/portapps/portapps/v3/pkg/shortcut"
 )
+
+//go:embed res/Discord.lnk
+var defaultShortcut []byte
+
+//go:embed res/pinned_update.json
+var pinnedUpdate []byte
 
 type config struct {
 	Cleanup bool `yaml:"cleanup" mapstructure:"cleanup"`
@@ -112,21 +116,13 @@ func main() {
 	}
 
 	// Copy pinned_update.json
-	pinnedUpdate, err := assets.Asset("pinned_update.json")
-	if err != nil {
-		log.Error().Err(err).Msg("Cannot load asset pinned_update.json")
-	}
-	err = os.WriteFile(filepath.Join(app.DataPath, "pinned_update.json"), pinnedUpdate, 0644)
+	err := os.WriteFile(filepath.Join(app.DataPath, "pinned_update.json"), pinnedUpdate, 0644)
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot write pinned_update.json")
 	}
 
 	// Copy default shortcut
 	shortcutPath := filepath.Join(files.StartMenuPath(), "Discord Portable.lnk")
-	defaultShortcut, err := assets.Asset("Discord.lnk")
-	if err != nil {
-		log.Error().Err(err).Msg("Cannot load asset Discord.lnk")
-	}
 	err = os.WriteFile(shortcutPath, defaultShortcut, 0644)
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot write default shortcut")
