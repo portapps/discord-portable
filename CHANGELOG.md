@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.9258-26 (2026/09/20)
+
+* Discord 1.0.9258
+* Portapps 3.19.0
+* Bump github.com/josephspurrier/goversioninfo from 1.5.0 to 1.7.0
+
 ## 1.0.9232-25 (2026/04/13)
 
 * Discord 1.0.9232
